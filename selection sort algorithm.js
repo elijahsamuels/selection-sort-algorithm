@@ -2,7 +2,7 @@
 
 // Flatiron School method
 
-// let unsortedArray = [5, 6, -1, 1, 3];
+// let unsortedArray = [5, 1, 4, 0, -1, 2, 3];
 // const minAndRemove = (array) => {
 // 	let min = array[0];
 // 	let minIndex = 0;
@@ -24,10 +24,11 @@
 // 	while (array.length != 0) {
 // 		newMin = minAndRemove(array);
 // 		sorted.push(newMin);
+// 		console.log(sorted)
 // 	}
 // 	return sorted;
 // }
-
+// console.log(selectionSort(unsortedArray));
 
 // ######################### A simpler way ###############################
 
@@ -54,23 +55,23 @@
 
 // ######################### Clean and Pure Function (doesn't mutate) ###############################
 
-let unsortedArray = [5, 1, 4, 0, -1, 2, 3];
-
-selectionSort = (array) => {
+let unsortedArray = [5, -2, 1, 4, 0, -1, 2];
+	
+const selectionSort = (array) => {
 
 	const arr = array.slice(); 
 	
-	for (i = 0; i < arr.length - 1; i++) {
+	for (i = 0; i < arr.length-1; i++) {
 		let minIndex = i;
 		for (j = i; j < arr.length; j++) {
 			if (arr[j] < arr[minIndex]) {
 				minIndex = j;
+				console.log(`arr[i]: ${arr[i]}, arr[j]: ${arr[j]}, arr[minIndex]: ${arr[minIndex]}, arr: ${arr}`);
 			}
 		}
 		[arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]
 	}
 	return arr
 }
-selectionSort(unsortedArray)
-
+console.log(selectionSort(unsortedArray))
 
