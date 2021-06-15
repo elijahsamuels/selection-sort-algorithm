@@ -67,6 +67,7 @@ const selectionSort = (array) => {
 			if (arr[j] < arr[minIndex]) {
 				minIndex = j;
 				console.log(`arr[i]: ${arr[i]}, arr[j]: ${arr[j]}, arr[minIndex]: ${arr[minIndex]}, arr: ${arr}`);
+				document.getElementById("root").append(`arr[i]: ${arr[i]}, arr[j]: ${arr[j]}, arr[minIndex]: ${arr[minIndex]}, arr: ${arr}`);
 			}
 		}
 		[arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]
@@ -75,3 +76,4 @@ const selectionSort = (array) => {
 }
 console.log(selectionSort(unsortedArray))
 
+// document.getElementById("root").append(selectionSort(unsortedArray))
