@@ -1,79 +1,89 @@
-// selection sort algorithm
+let unsortedArray = [1, 3, 0, -1, 2];
 
-// Flatiron School method
-
-// let unsortedArray = [5, 1, 4, 0, -1, 2, 3];
-// const minAndRemove = (array) => {
-// 	let min = array[0];
-// 	let minIndex = 0;
-// 	for (let i = 0; i < array.length; i++) {
-// 		if (array[i] < min) {
-// 			min = array[i];
-// 			minIndex = i;
-// 		} 
-// 	}
-// 	array.splice(minIndex, 1);
-// 	return min;
-// }
-
-// minAndRemove(unsortedArray)
-
-// const selectionSort = (array) => {
-// 	let newMin;
-// 	let sorted = [];
-// 	while (array.length != 0) {
-// 		newMin = minAndRemove(array);
-// 		sorted.push(newMin);
-// 		console.log(sorted)
-// 	}
-// 	return sorted;
-// }
-// console.log(selectionSort(unsortedArray));
-
-// ######################### A simpler way ###############################
-
-// this runs in Quadratic Time - O(n^2)
-
-// let unsortedArray = [5, 6, -1, 1, 3];
-
-// selectionSort = (array) => {
-	
-// 	for (i = 0; i < array.length - 1; i++) {
-// 		let minIndex = i;
-// 		for (j = i; j < array.length; j++) {
-// 			if (array[j] < array[minIndex]) {
-// 				minIndex = j;
-// 			}
-// 		}
-// 		const temp = array[i];
-// 		array[i] = array[minIndex];
-// 		array[minIndex] = temp;
-// 	}
-// 	return array
-// }
-// selectionSort(unsortedArray)
-
-// ######################### Clean and Pure Function (doesn't mutate) ###############################
-
-let unsortedArray = [5, -2, 1, 4, 0, -1, 2];
-	
 const selectionSort = (array) => {
 
-	const arr = array.slice(); 
-	
-	for (i = 0; i < arr.length-1; i++) {
+    // const arr = array.slice();
+    // const arr = [...array];
+    const arr = Array.from(array);
+
+	for (i = 0; i < arr.length; i++) {
 		let minIndex = i;
 		for (j = i; j < arr.length; j++) {
 			if (arr[j] < arr[minIndex]) {
+				console.log(`before setting minIndex(${arr[minIndex]}), arr[j]: ${arr[j]},`);
 				minIndex = j;
+				console.log(`after setting minIndex(${arr[minIndex]}), arr[j]: ${arr[j]},`);
 				console.log(`arr[i]: ${arr[i]}, arr[j]: ${arr[j]}, arr[minIndex]: ${arr[minIndex]}, arr: ${arr}`);
-				document.getElementById("root").append(`arr[i]: ${arr[i]}, arr[j]: ${arr[j]}, arr[minIndex]: ${arr[minIndex]}, arr: ${arr}`);
+				console.log(`- - - - - - - `);
 			}
 		}
+		console.log(`before swap: arr[i] ${arr[i]}, arr[minIndex]: ${arr[minIndex]}`);
 		[arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]
+		console.log(`arr[i]: ${arr[i]}, arr[j]: ${arr[j]}, arr[minIndex]: ${arr[minIndex]}, arr: ${arr}`);
+		console.log(`- - - - - - - `);
 	}
 	return arr
 }
-console.log(selectionSort(unsortedArray))
+selectionSort(unsortedArray)
 
-// document.getElementById("root").append(selectionSort(unsortedArray))
+// this works by scanning through the array and finding the lowest value.
+
+// algorithm.js:10 arr[i]: 1, arr[j]: 0, arr[minIndex]: 0, arr: 1,3,0,-1,2
+// algorithm.js:10 arr[i]: 1, arr[j]: -1, arr[minIndex]: -1, arr: 1,3,0,-1,2
+// algorithm.js:14 arr[i]: -1, arr[j]: undefined, arr[minIndex]: 1, arr: -1,3,0,1,2
+// algorithm.js:10 arr[i]: 3, arr[j]: 0, arr[minIndex]: 0, arr: -1,3,0,1,2
+// algorithm.js:14 arr[i]: 0, arr[j]: undefined, arr[minIndex]: 3, arr: -1,0,3,1,2
+// algorithm.js:10 arr[i]: 3, arr[j]: 1, arr[minIndex]: 1, arr: -1,0,3,1,2
+// algorithm.js:14 arr[i]: 1, arr[j]: undefined, arr[minIndex]: 3, arr: -1,0,1,3,2
+// algorithm.js:10 arr[i]: 3, arr[j]: 2, arr[minIndex]: 2, arr: -1,0,1,3,2
+// algorithm.js:14 arr[i]: 2, arr[j]: undefined, arr[minIndex]: 3, arr: -1,0,1,2,3
+// algorithm.js:14 arr[i]: 3, arr[j]: undefined, arr[minIndex]: 3, arr: -1,0,1,2,3
+
+/*
+
+before setting minIndex(1), arr[j]: 0,
+selection sort algorithm.js:13 after setting minIndex(0), arr[j]: 0,
+selection sort algorithm.js:14 arr[i]: 1, arr[j]: 0, arr[minIndex]: 0, arr: 1,3,0,-1,2
+selection sort algorithm.js:15 - - - - - - - 
+
+selection sort algorithm.js:11 before setting minIndex(0), arr[j]: -1,
+selection sort algorithm.js:13 after setting minIndex(-1), arr[j]: -1,
+selection sort algorithm.js:14 arr[i]: 1, arr[j]: -1, arr[minIndex]: -1, arr: 1,3,0,-1,2
+selection sort algorithm.js:15 - - - - - - - 
+
+selection sort algorithm.js:18 before swap: arr[i] 1, arr[minIndex]: -1
+selection sort algorithm.js:20 arr[i]: -1, arr[j]: undefined, arr[minIndex]: 1, arr: -1,3,0,1,2
+selection sort algorithm.js:21 - - - - - - - 
+
+selection sort algorithm.js:11 before setting minIndex(3), arr[j]: 0,
+selection sort algorithm.js:13 after setting minIndex(0), arr[j]: 0,
+selection sort algorithm.js:14 arr[i]: 3, arr[j]: 0, arr[minIndex]: 0, arr: -1,3,0,1,2
+selection sort algorithm.js:15 - - - - - - - 
+
+selection sort algorithm.js:18 before swap: arr[i] 3, arr[minIndex]: 0
+selection sort algorithm.js:20 arr[i]: 0, arr[j]: undefined, arr[minIndex]: 3, arr: -1,0,3,1,2
+selection sort algorithm.js:21 - - - - - - - 
+
+selection sort algorithm.js:11 before setting minIndex(3), arr[j]: 1,
+selection sort algorithm.js:13 after setting minIndex(1), arr[j]: 1,
+selection sort algorithm.js:14 arr[i]: 3, arr[j]: 1, arr[minIndex]: 1, arr: -1,0,3,1,2
+selection sort algorithm.js:15 - - - - - - - 
+
+selection sort algorithm.js:18 before swap: arr[i] 3, arr[minIndex]: 1
+selection sort algorithm.js:20 arr[i]: 1, arr[j]: undefined, arr[minIndex]: 3, arr: -1,0,1,3,2
+selection sort algorithm.js:21 - - - - - - - 
+
+selection sort algorithm.js:11 before setting minIndex(3), arr[j]: 2,
+selection sort algorithm.js:13 after setting minIndex(2), arr[j]: 2,
+selection sort algorithm.js:14 arr[i]: 3, arr[j]: 2, arr[minIndex]: 2, arr: -1,0,1,3,2
+selection sort algorithm.js:15 - - - - - - - 
+
+selection sort algorithm.js:18 before swap: arr[i] 3, arr[minIndex]: 2
+selection sort algorithm.js:20 arr[i]: 2, arr[j]: undefined, arr[minIndex]: 3, arr: -1,0,1,2,3
+selection sort algorithm.js:21 - - - - - - - 
+
+selection sort algorithm.js:18 before swap: arr[i] 3, arr[minIndex]: 3
+selection sort algorithm.js:20 arr[i]: 3, arr[j]: undefined, arr[minIndex]: 3, arr: -1,0,1,2,3
+selection sort algorithm.js:21 - - - - - - - 
+
+*/
